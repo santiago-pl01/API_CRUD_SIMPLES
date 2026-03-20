@@ -37,7 +37,7 @@ app.delete(
 
 //rota do servidor
 app.get('/', (req, res) =>{
-    res.send("Servidor ")
+    res.send("Hi, i am servidor  ")
 })
 
 // Iniciando o servidor
