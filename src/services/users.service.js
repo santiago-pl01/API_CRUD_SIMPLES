@@ -6,7 +6,6 @@ Adicionar as seguintes regras:
 - email: precisa ter um formato de email válido,
 - name: precisa ter no mínimo 3 caracteres, campo obrigatório
 -buscar usuario por id, nome ou email
-
 */
 
 class UserService {
@@ -19,9 +18,15 @@ class UserService {
         }
         catch (error) {
             if (error.code === 'P2002') {
-                throw new Error("Email já existe. Por favor, use um email diferente.");
+                const err = new Error("Email já existe");
+                err.type = "DUPLICATE_EMAIL";
+                throw err;  
             }
-            throw error;
+            if (error.code === 'P2003') {
+                const err = new Error("Dados inválidos");
+                err.type = "INVALID_DATA";
+                throw err;
+            }
         }
     }
     //ReadUser (id = none, name=none, email=none)

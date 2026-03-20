@@ -1,7 +1,7 @@
 
 ## Documentação da API
 
-#### Servidor rodando
+### Servidor rodando
 
 ```http
   GET /
@@ -12,7 +12,7 @@
 Hi, i am servidor 
 ````
 
-#### Retorna todos os itens
+### Retorna todos os Usuarios 
 
 ```http
   GET /users
@@ -43,7 +43,7 @@ Hi, i am servidor
 ````
 
 
-#### Cria um usuario
+### Cria um usuario
 
 ```http
   PUT/ users_creat
@@ -61,7 +61,7 @@ Hi, i am servidor
 {
   "message": "Usuário cadastrado com sucesso",
   "data": {
-    "id": "69bd97258fcc080245e9caa2",
+    "id": "000000000000",
     "email": "Usuario@email.com",
     "name": "Usuario"
   }
@@ -82,13 +82,13 @@ Hi, i am servidor
 ````
 
 
-#### Atualizar um usuario
+### Atualizar um usuario
 
 ```http
   PUT/ users_Update
 ```
 
-| parms   | Tipo       | Descrição                                   |
+| params   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `name`      | `string` | ID do usuario que deseja atualizar|
 
@@ -126,13 +126,13 @@ Hi, i am servidor
 }
 ````
 
-#### Deleatr um usuario
+### Deleatr um usuario
 
 ```http
   PUT/ users_delete
 ```
 
-| parms   | Tipo       | Descrição                                   |
+| params   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `name`      | `string` | ID do usuario que deseja deletar|
 
