@@ -1,13 +1,19 @@
 import { PrismaClient } from '../generated/prisma/client.js';
 const prisma = new PrismaClient();
 
+/*
+Adicionar as seguintes regras:
+- email: precisa ter um formato de email válido,
+- name: precisa ter no mínimo 3 caracteres, campo obrigatório
+-buscar usuario por id, nome ou email
+
+*/
+
 class UserService {
-    createUser = async (name, email) => {
+    createUser = async ({name, email}) => {
         try {
             const user = await prisma.user.create({
-                data: {
-                    name, email
-                }
+                data: {name, email}
             });
             return user;
         }
@@ -16,7 +22,6 @@ class UserService {
                 throw new Error("Email já existe. Por favor, use um email diferente.");
             }
             throw error;
-
         }
     }
     //ReadUser (id = none, name=none, email=none)
@@ -26,42 +31,50 @@ class UserService {
             const user = await prisma.user.findMany()
             return user;
         }
-        catch(error){
+        catch (error) {
             throw new Error("Erro ao buscar usuários");
         }
-
-
     }
 
-    UpdateUser = async (id, name, email) => {
+    //UpdateUser precisa receber o id do usuario a ser atualizado, e os novos dados (name e email)
+    UpdateUser = async ({ where, data }) => {
         try {
             const user = await prisma.user.update({
-                where: { id },
-                data: { name, email }
+                where,
+                data
             });
             return user;
         }
         catch (error) {
-            if (error.code === '')
-                throw new Error("não foi possivel atualizar")
+            //usuario não encontrado
+            if (error.code === 'P2025') {
+                const err = new Error("Usuario não encontrado");
+                err.type = "NOT_FOUND";
+                throw err;
+            }
+           const err = new Error("Erro ao atualizar usuário");
+           err.type = "INTERNAL_ERROR";
+           throw err;
         }
-        throw error
-
     }
-
+    //DeleteUser precisa receber o id do usuario a ser deletado
     DeleteUser = async (id) => {
         try {
             const user = await prisma.user.delete({
                 where: { id }
-
             });
             return user;
         }
         catch (error) {
-            if (error.code ==='2P2025')
-                throw new Error("não foi possivel deletar usuario")
+            if (error.code === 'P2025') {
+                const err = new Error("Usuario não encontrado");
+                err.type = "NOT_FOUND";
+                throw err;
+            }
+            const err = new Error("Erro ao deletar usuário");
+            err.type = "INTERNAL_ERROR";
+            throw err;
         }
-        throw error
     }
 }
 
