@@ -28,4 +28,4 @@ Esta API foi de desenvolvida com intuito de mostrar, de forma simples, uma API q
 ## Melhorias
 
 Esta API ainda tem pontos que devem/podem ser melhorados, como:
-* 
+* melhorias nas regras de validação(email e nome. Ex.: Nome com no minimo 3 caracters )
